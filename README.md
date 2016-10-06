@@ -1,6 +1,6 @@
 # Superuser UI
 
-####su access manager for [phh's Superuser](https://github.com/seSuperuser/super-bootimg)
+####SU access manager for [phh's Superuser](https://github.com/seSuperuser/super-bootimg)
 
 ![logo](https://dl.dropboxusercontent.com/s/psdh4lkmdqof5rn/su_logo_small.png?dl=0)
 
