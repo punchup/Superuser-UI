@@ -1,5 +1,7 @@
 # Superuser UI
 
+su access manager for [phh's Superuser](https://github.com/seSuperuser/super-bootimg)
+
 ![logo](https://dl.dropboxusercontent.com/s/psdh4lkmdqof5rn/su_logo_small.png?dl=0)
 
 
@@ -7,10 +9,12 @@
 
 [<img src="https://dl.dropboxusercontent.com/s/mpnm78c1gui044l/google-play-badge1.png?dl=0">][1] [<img src="https://dl.dropboxusercontent.com/s/p7rswn9380f5wwd/fdroid-badge.png?dl=0">][2]
 
+
 ## Checking out the source
 * $ mkdir /path/to/src
 * $ cd /path/to/src
 * $ git clone git://github.com/seSuperuser/Superuser
+
 
 ## Building the application
 
@@ -19,6 +23,7 @@ Make sure the SDK Platform for API 24 is installed, through the Android SDK Mana
 Android Studio 2.2 or higher recommended.
 
 All dependencies will be downloaded automatically from their respective repositories.
+
 
 ##License
 
