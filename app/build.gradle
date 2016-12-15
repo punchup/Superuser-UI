@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "me.phh.superuser"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 16121404
+        versionName "2.0"
+
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    signingConfigs {
+        release {
+            if(System.getenv("KEYSTORE") != null) {
+                storeFile file(System.getenv("KEYSTORE"))
+                storePassword new String(System.console().readPassword("\n\$ Enter store password: "))
+                keyAlias "su"
+                keyPassword new String(System.console().readPassword("\n\$ Enter key password: "))
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig android.signingConfigs.release
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/beans.xml'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:preference-v14:25.1.0'
+    compile 'com.android.support:design:25.1.0'
+
+    compile 'com.afollestad.material-dialogs:core:0.9.0.2'
+    compile 'com.afollestad.material-dialogs:commons:0.9.0.2'
+
+    compile 'com.github.paolorotolo:appintro:4.0.0'
+
+    compile project(':libAppThemeHelper')
+}

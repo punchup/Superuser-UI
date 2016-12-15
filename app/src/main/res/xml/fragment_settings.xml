@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.koushikdutta.superuser.view.PreferenceCategoryCustom
+        app:title="@string/security">
+
+        <Preference
+            app:key="access"
+            app:title="@string/superuser_access"/>
+
+        <Preference
+            app:key="multiuser"
+            app:title="@string/multiuser_policy"/>
+
+        <Preference
+            app:key="response"
+            app:title="@string/automatic_response"/>
+
+        <Preference
+            app:key="timeout"
+            app:title="@string/request_timeout"/>
+
+        <Preference
+            app:key="pin"
+            app:title="@string/pin_protection"
+            app:summary="@string/pin_protection_summary"/>
+
+        <com.kabouzeid.appthemehelper.common.preference.ATESwitchPreference
+            app:key="confirmation"
+            app:title="@string/pref_confirmation"
+            app:summary="@string/pref_confirmation_summary" />
+    </com.koushikdutta.superuser.view.PreferenceCategoryCustom>
+
+    <com.koushikdutta.superuser.view.PreferenceCategoryCustom
+        app:title="@string/behavior">
+
+        <!--<CheckBoxPreference
+            app:key="logging"
+            app:title="@string/logging"
+            app:icon="@drawable/ic_history"/>-->
+
+        <Preference
+            app:key="notification"
+            app:title="@string/notification"/>
+
+        <com.kabouzeid.appthemehelper.common.preference.ATESwitchPreference
+            app:key="deny_mode"
+            app:title="@string/restrict_noti"
+            app:summary="@string/restrict_noti_summary"/>
+
+
+    </com.koushikdutta.superuser.view.PreferenceCategoryCustom>
+
+    <com.koushikdutta.superuser.view.PreferenceCategoryCustom
+        app:title="@string/pref_interface">
+
+        <com.kabouzeid.appthemehelper.common.preference.ATESwitchPreference
+            app:key="ellipsize"
+            app:title="@string/ellipsize"
+            android:defaultValue="true"/>
+
+    </com.koushikdutta.superuser.view.PreferenceCategoryCustom>
+
+</android.support.v7.preference.PreferenceScreen>

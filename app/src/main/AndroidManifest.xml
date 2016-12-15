@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.koushikdutta.superuser"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false"/>
+
+    <permission
+        android:name="android.permission.REQUEST_SUPERUSER"
+        android:protectionLevel="signature" />
+    <permission
+        android:name="android.permission.REPORT_SUPERUSER"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+
+    <application
+        android:name=".Superuser"
+        android:allowBackup="false"
+        android:allowClearUserData="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:replace="allowBackup">
+
+        <activity
+            android:name=".ActivitySplash"
+            android:theme="@style/AppTheme.Splash">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ActivityIntro"
+            android:theme="@style/AppTheme.Fullscreen"/>
+
+        <activity
+            android:name=".ActivityAbout"
+            android:label="@string/about" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+        </activity>
+
+        <activity
+            android:name=".ActivityLog"
+            android:label="" />
+
+        <activity
+            android:name=".ActivitySettings"
+            android:label="@string/settings" />
+
+        <!-- Only system/su can open this activity -->
+        <!-- This activity will then call the MultitaskSuRequestActivity to create a new task stack -->
+        <activity
+            android:name=".RequestActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:label="@string/superuser"
+            android:launchMode="singleTask"
+            android:permission="android.permission.REQUEST_SUPERUSER"
+            android:taskAffinity="internal.superuser"
+            android:theme="@style/AppTheme.Translucent" />
+
+        <!-- Multiple instances of this activity can be running for multiple su requests -->
+        <activity
+            android:name=".MultitaskSuRequestActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:label="@string/request"
+            android:taskAffinity="internal.superuser"
+            android:theme="@style/PopupTheme.Light"/>
+
+        <!-- Only system/su can open this activity -->
+        <!-- This is activity is started in multiuser mode when the user invoking su -->
+        <!-- is not the device owner (user id 0). -->
+        <activity
+            android:name=".NotifyActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:label="@string/superuser"
+            android:launchMode="singleTask"
+            android:permission="android.permission.REQUEST_SUPERUSER"
+            android:taskAffinity="internal.superuser"
+            android:theme="@style/PopupTheme.Light"/>
+
+
+        <receiver
+            android:name=".SuReceiver"
+            android:permission="android.permission.REPORT_SUPERUSER" />
+
+
+        <receiver android:name=".SuCheckerReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+
+        <receiver android:name=".PackageChangeReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

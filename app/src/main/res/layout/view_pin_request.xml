@@ -1,0 +1,118 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:baselineAligned="false">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/p1"
+                style="@style/PinButton.Request"/>
+
+            <Button
+                android:id="@+id/p2"
+                style="@style/PinButton.Request"/>
+
+            <Button
+                android:id="@+id/p3"
+                style="@style/PinButton.Request"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/p4"
+                style="@style/PinButton.Request"/>
+
+            <Button
+                android:id="@+id/p5"
+                style="@style/PinButton.Request"/>
+
+            <Button
+                android:id="@+id/p6"
+                style="@style/PinButton.Request"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/p7"
+                style="@style/PinButton.Request"/>
+
+            <Button
+                android:id="@+id/p8"
+                style="@style/PinButton.Request"/>
+
+            <Button
+                android:id="@+id/p9"
+                style="@style/PinButton.Request"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/p0"
+                style="@style/PinButton.Request"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:paddingRight="6dp"
+        android:paddingEnd="6dp">
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/transparent"
+            android:inputType="textPassword"
+            android:textSize="16sp"
+            android:hint="@string/enter_pin"
+            android:maxLines="1"
+            android:padding="@dimen/section_padding"
+            android:layout_marginBottom="5dp"/>
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/clear"
+            style="@style/PinButton.Bottom.Request"
+            android:text="@string/clear"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/ok"
+            style="@style/PinButton.Bottom.Request"
+            android:text="@android:string/ok"/>
+
+        <!--<android.support.v7.widget.AppCompatButton
+            android:id="@+id/cancel"
+            style="@style/PinButton.Bottom.Request"
+            android:text="@android:string/cancel"/>-->
+    </LinearLayout>
+
+</LinearLayout>

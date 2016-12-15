@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?pagerBackground"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:contentInsetStartWithNavigation="0dp"
+            android:background="?colorPrimary"
+            android:elevation="2dp"
+            app:theme="?actionBarTheme"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/copyleft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="15dp">
+
+                <com.koushikdutta.superuser.view.MirroredTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="22sp"
+                    android:textColor="#808080"
+                    android:text="©"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15.5sp"
+                    android:textColor="#808080"
+                    android:text="Pierre-Hugues Husson"/>
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/copyleft"
+                android:layout_alignParentTop="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="3dp">
+
+                    <LinearLayout
+                        style="@style/AboutCardParent"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            style="?textViewAboutHeaderStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_weight="0"
+                            android:paddingBottom="10dp"
+                            android:text="phh's Superuser" />
+
+                        <com.koushikdutta.superuser.view.TextViewAbout
+                            android:id="@+id/su_info"
+                            style="?textViewAboutStyle"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/card_su_ui"
+                        style="@style/AboutCardParent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="?textViewAboutHeaderStyle"
+                                android:text="Superuser UI" />
+
+                            <ImageView
+                                style="@style/ImageViewMore"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/su_ui_info_parent"
+                            style="@style/AboutSectionParent">
+
+                            <com.koushikdutta.superuser.view.TextViewAbout
+                                android:id="@+id/su_ui_info"
+                                style="?textViewAboutStyle"
+                                android:layout_marginBottom="25dp"/>
+
+                            <TextView
+                                style="?textViewAboutSubHeaderStyle"
+                                android:text="Libraries Used"/>
+
+                            <com.koushikdutta.superuser.view.TextViewAbout
+                                android:id="@+id/su_ui_library_info"
+                                style="?textViewAboutStyle"
+                                android:layout_marginBottom="25dp"/>
+
+                            <TextView
+                                style="?textViewAboutSubHeaderStyle"
+                                android:text="Resources"/>
+
+                            <com.koushikdutta.superuser.view.TextViewAbout
+                                android:id="@+id/su_ui_res_info"
+                                style="?textViewAboutStyle"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/card_aosp"
+                        style="@style/AboutCardParent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="?textViewAboutHeaderStyle"
+                                android:text="AOSP SU Patch" />
+
+                            <ImageView
+                                style="@style/ImageViewMore"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/aosp_info_parent"
+                            style="@style/AboutSectionParent">
+
+                            <com.koushikdutta.superuser.view.TextViewAbout
+                                android:id="@+id/aosp_info"
+                                style="?textViewAboutStyle"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/card_cont"
+                        style="@style/AboutCardParent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="?textViewAboutHeaderStyle"
+                                android:text="Contributors" />
+
+                            <ImageView
+                                style="@style/ImageViewMore"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/cont_info_parent"
+                            style="@style/AboutSectionParent">
+
+                            <TextView
+                                style="?textViewAboutSubHeaderStyle"
+                                android:text="Development"/>
+
+                            <com.koushikdutta.superuser.view.TextViewAbout
+                                android:id="@+id/cont_dev_info"
+                                style="?textViewAboutStyle"/>
+
+                            <TextView
+                                style="?textViewAboutSubHeaderStyle"
+                                android:text="Translation"/>
+
+                            <com.koushikdutta.superuser.view.TextViewAbout
+                                android:id="@+id/cont_tran_info"
+                                style="?textViewAboutStyle"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

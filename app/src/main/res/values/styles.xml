@@ -1,0 +1,313 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!--<item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryStatus</item>
+        <item name="colorAccent">@color/colorAccent</item>-->
+        <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
+        <item name="popupTheme">@style/AppTheme.PopupOverlay</item>
+        <item name="tabIndicatorAccent">#ececec</item>
+        <item name="iconTint">#dadada</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="preferenceTheme">@style/PreferenceTheme</item>
+        <item name="textViewAboutHeaderStyle">@style/TextViewAboutHeader</item>
+        <item name="textViewAboutSubHeaderStyle">@style/TextViewAboutSubHeader</item>
+        <item name="textViewAboutStyle">@style/TextViewAbout</item>
+        <item name="pagerBackground">@color/colorBackground</item><!--ff0e141a-->
+        <item name="dividerGrid">#3d3d3d</item>
+        <item name="listItemBackground">#20000000</item>
+        <item name="listItemBackgroundOverlay">#55000000</item>
+        <!--<item name="android:textColorPrimary">#e9e9e9</item>
+        <item name="android:textColorSecondary">#a0a0a0</item>-->
+        <item name="textColorPrimary">#eaeaea</item>
+        <item name="textColorLogChild">#a9a9a9</item>
+        <item name="textColorGridItemPrimary">#ffffff</item>
+        <item name="textColorGridItemSecondary">#bababa</item>
+        <item name="textColorListItemPrimary">#efefef</item>
+        <item name="textColorListItemSecondary">#bababa</item>
+        <item name="textColorCounter">#dadada</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="ate_key">dark_theme</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+
+    <style name="AppTheme.Black" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary_Black</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryStatus_Black</item>
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <item name="actionBarTheme">@style/AppTheme.AppBarOverlay.Black</item>
+        <item name="tabIndicatorAccent">#4dd0e1</item>
+        <item name="iconTint">#cacaca</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="preferenceTheme">@style/PreferenceTheme</item>
+        <item name="textViewAboutHeaderStyle">@style/TextViewAboutHeader</item>
+        <item name="textViewAboutSubHeaderStyle">@style/TextViewAboutSubHeader</item>
+        <item name="textViewAboutStyle">@style/TextViewAbout</item>
+        <item name="pagerBackground">#000000</item>
+        <item name="dividerGrid">#000000</item>
+        <item name="listItemBackground">#00bee9fd</item>
+        <item name="listItemBackgroundOverlay">#39000000</item><!--0a0d0e-->
+        <!--<item name="android:textColorPrimary">#c9c9c9</item>
+        <item name="android:textColorSecondary">#767676</item>-->
+        <item name="textColorPrimary">#e5e5e5</item>
+        <item name="textColorLogChild">#999999</item>
+        <item name="textColorGridItemPrimary">#e0e0e0</item>
+        <item name="textColorGridItemSecondary">#999999</item>
+        <item name="textColorListItemPrimary">#cfcfcf</item>
+        <item name="textColorListItemSecondary">#999999</item>
+        <item name="textColorCounter">#c0c0c0</item>
+    </style>
+
+    <style name="AppTheme.Black.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+
+    <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="colorPrimary">@color/colorPrimary_Light</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryStatus_Light</item>
+        <item name="colorAccent">@color/colorAccent_Light</item>-->
+        <item name="actionBarTheme">@style/AppTheme.AppBarOverlay.Light</item>
+        <item name="popupTheme">@style/AppTheme.PopupOverlay.Light</item>
+        <item name="tabIndicatorAccent">#efefef</item>
+        <item name="iconTint">#606060</item>
+        <item name="preferenceTheme">@style/PreferenceTheme</item>
+        <item name="textViewAboutHeaderStyle">@style/TextViewAboutHeader.Light</item>
+        <item name="textViewAboutSubHeaderStyle">@style/TextViewAboutSubHeader.Light</item>
+        <item name="textViewAboutStyle">@style/TextViewAbout.Light</item>
+        <item name="pagerBackground">#f0f0f0</item>
+        <item name="dividerGrid">#d9d9d9</item>
+        <item name="listItemBackground">#09000000</item>
+        <item name="listItemBackgroundOverlay">#eaeaea</item><!--cfd8dc-->
+        <!--<item name="android:textColorPrimary">#3b3b3b</item>
+        <item name="android:textColorSecondary">#666666</item>-->
+        <item name="textColorPrimary">#323232</item>
+        <item name="textColorLogChild">#606060</item>
+        <item name="textColorGridItemPrimary">#161616</item>
+        <item name="textColorGridItemSecondary">#727272</item>
+        <item name="textColorListItemPrimary">#494949</item>
+        <item name="textColorListItemSecondary">#606060</item>
+        <item name="textColorCounter">#555555</item>
+    </style>
+
+    <style name="AppTheme.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+
+    <style name="AppTheme.Splash">
+        <item name="colorPrimary">#101010</item>
+        <item name="colorPrimaryDark">#101010</item>
+        <item name="android:background">#101010</item>
+    </style>
+
+
+
+    <style name="AppTheme.Fullscreen" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+
+
+    <style name="AppTheme.Translucent" >
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!--<item name="android:textColorPrimary">#424242</item>-->
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat">
+        <item name="android:textColor">#eaeaea</item>
+        <item name="android:textColorPrimary">#eaeaea</item>
+        <item name="actionMenuTextColor">#eaeaea</item>
+        <item name="android:actionMenuTextColor">#eaeaea</item>
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay.Black" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!--<item name="android:textColorPrimary">#dcdcdc</item>-->
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay.Light" parent="ThemeOverlay.AppCompat.ActionBar">
+        <!--<item name="android:textColorPrimary">#404040</item>-->
+    </style>
+
+    <style name="AppTheme.PopupOverlay.Light" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+    <style name="PreferenceTheme" parent="PreferenceThemeOverlay.v14.Material" >
+        <item name="android:paddingLeft">3dp</item>
+        <item name="android:paddingRight">3dp</item>
+        <item name="android:dividerHeight">0.75dp</item>
+    </style>
+
+
+
+    <style name="PopupTheme.Base" parent="@style/Theme.AppCompat.Dialog" >
+        <item name="pagerBackground">#292929</item>
+        <item name="android:textColorPrimary">#e0e0e0</item>
+        <item name="android:textColorSecondary">#959595</item>
+        <item name="iconTint">#eaeaea</item>
+    </style>
+
+    <style name="PopupTheme" parent="PopupTheme.Base" />
+
+
+    <style name="PopupTheme.Base.Light" parent="Theme.AppCompat.Light.Dialog" >
+        <item name="pagerBackground">#fafafa</item>
+        <item name="android:textColorPrimary">#505050</item>
+        <item name="android:textColorSecondary">#818181</item>
+        <item name="iconTint">#424242</item>
+    </style>
+
+    <style name="PopupTheme.Light" parent="PopupTheme.Base.Light" />
+
+
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert" >
+        <item name="android:background">#212121</item>
+        <item name="textColorAlertDialogListItem">#dadada</item>
+        <item name="android:windowTitleStyle">@style/AlertDialogTitle</item>
+    </style>
+
+    <style name="AlertDialogTitle">
+        <item name="android:textColor">#dcdcdc</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+    </style>
+
+
+    <style name="AlertDialogTheme.Light" parent="Theme.AppCompat.Dialog.Alert" >
+        <item name="android:windowTitleStyle">@style/AlertDialogTitle</item>
+    </style>
+
+    <style name="AlertDialogTitle.Light">
+        <item name="android:textColor">#424242</item>
+    </style>
+
+
+
+    <style name="PinButton" parent="@android:style/TextAppearance.Large">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">?selectableItemBackground</item>
+        <item name="android:textColor">?textColorListItemPrimary</item>
+    </style>
+
+    <style name="PinButton.Bottom">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?textColorListItemPrimary</item>
+    </style>
+
+    <style name="PinButton.Request">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="PinButton.Bottom.Request" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+
+
+    <style name="AboutCardParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">6.5dp</item>
+        <item name="android:layout_marginLeft">7.5dp</item>
+        <item name="android:layout_marginRight">7.5dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">?listItemBackground</item>
+    </style>
+
+
+    <style name="AboutSectionParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+
+    <style name="TextViewAboutHeader">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">#d9d9d9</item>
+    </style>
+
+    <style name="TextViewAboutHeader.Light">
+        <item name="android:textColor">#90000000</item>
+    </style>
+
+
+    <style name="TextViewAboutSubHeader">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">16.5sp</item>
+        <item name="android:textColor">#d0d0d0</item>
+    </style>
+
+    <style name="TextViewAboutSubHeader.Light">
+        <item name="android:textColor">#90000000</item>
+    </style>
+
+
+    <style name="TextViewAbout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#999999</item>
+        <item name="android:textColorLink">#d0d0d0</item>
+    </style>
+
+    <style name="TextViewAbout.Light">
+        <item name="android:textColor">#666666</item>
+        <item name="android:textColorLink">#525252</item>
+    </style>
+
+
+    <style name="ImageViewMore">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:tint">?iconTint</item>
+        <item name="srcCompat">@drawable/ic_more</item>
+        <item name="android:contentDescription">"More"</item>
+    </style>
+
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#26c6da</color>
+    <color name="colorPrimaryStatus">@color/colorPrimary</color>
+    <color name="colorAccent">#8bc34a</color>
+
+    <color name="colorBackground">#323232</color>
+
+    <color name="colorPrimary_Black">#000000</color>
+    <color name="colorPrimaryStatus_Black">@color/colorPrimary_Black</color>
+    <color name="colorAccent_Black">#00b69d</color>
+
+    <color name="colorPrimary_Light">#26c6da</color>
+    <color name="colorPrimaryStatus_Light">@color/colorPrimary_Light</color>
+    <color name="colorAccent_Light">#8bc34a</color>
+
+    <integer name="statusbar_tint">0x10000000</integer>
+</resources>
+
