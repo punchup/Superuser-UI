@@ -133,4 +133,6 @@
     <string name="note">Note</string>
     <string name="pin_warning">PIN is only meant to prevent your drunk self or mischievous sibling/kid from making unintended changes.\nIt is not secure enough to protect against a seasoned intruder!</string>
     <string name="understand">I understand</string>
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
 </resources>

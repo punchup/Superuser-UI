@@ -135,7 +135,7 @@ public class MainActivity extends ATHToolbarActivity
         title.setTextColor(ThemeStore.accentColor(this));
         title.setPadding(0, Build.VERSION.SDK_INT >= 21 ? Util.toPx(this, 40) : Util.toPx(this, 20), 0, Util.toPx(this, 10));
 
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.about, R.string.about) {
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open_drawer, R.string.close_drawer) {
 
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -161,7 +161,7 @@ public class MainActivity extends ATHToolbarActivity
                         startActivity(new Intent(MainActivity.this, ActivitySettings.class));
                         overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                     }
-                }, 500);
+                }, 200);
             }
         });
 
