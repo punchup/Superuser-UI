@@ -104,7 +104,44 @@ public class FragmentMain extends Fragment {
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            load();
+            //load(); This creates an unpleasant flicker. Better to change a single item
+
+            if (intent == null || intent.getExtras() == null || adapter == null) return;
+
+            String pkg = intent.getStringExtra("pkg");
+
+            int pos = adapter.getPositionByPackage(pkg);
+
+            if (pos == -1) return;
+
+            String log = logCount.get(pkg);
+
+            if (log == null) {
+                if (intent.getStringExtra("policy").equals(UidPolicy.ALLOW))
+                    log = "1+0";
+
+                else if (intent.getStringExtra("policy").equals(UidPolicy.DENY))
+                    log = "0+1";
+
+                logCount.put(pkg, log);
+
+                data.get(pos).setItem3(getString(R.string.today));
+                adapter.getVisible().get(pos).setItem3(getString(R.string.today));
+
+            } else {
+                if (intent.getStringExtra("policy").equals(UidPolicy.ALLOW))
+                    log = log.replace(log.substring(0, log.indexOf("+")), String.valueOf(Integer.parseInt(log.split("\\+")[0]) + 1));
+
+                else if (intent.getStringExtra("policy").equals(UidPolicy.DENY))
+                    log = log.replace(log.substring(log.indexOf("+") + 1), String.valueOf(Integer.parseInt(log.split("\\+")[1]) + 1));
+
+                for (Map.Entry<String, String> entry : logCount.entrySet()) {
+                    if (entry.getKey().equals(pkg))
+                        entry.setValue(log);
+                }
+            }
+
+            adapter.notifyItemChanged(pos);
         }
     };
 
@@ -490,6 +527,16 @@ public class FragmentMain extends Fragment {
         @Override
         public int getItemCount() {
             return visible.size();
+        }
+
+
+        int getPositionByPackage(String pkg) {
+            for (ListItem item : visible) {
+                if (item.getPolicy().packageName.equals(pkg))
+                    return visible.indexOf(item);
+            }
+
+            return -1;
         }
 
 

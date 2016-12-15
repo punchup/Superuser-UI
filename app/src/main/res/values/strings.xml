@@ -130,4 +130,7 @@
     <string name="ellipsize">Ellipsize app name</string>
     <string name="counter_back">Counter background</string>
     <string name="counter_text">Counter text</string>
+    <string name="note">Note</string>
+    <string name="pin_warning">PIN is only meant to prevent your drunk self or mischievous sibling/kid from making unintended changes.\nIt is not secure enough to protect against a seasoned intruder!</string>
+    <string name="understand">I understand</string>
 </resources>

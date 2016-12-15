@@ -362,33 +362,6 @@ public class FragmentSettings extends PreferenceFragmentCompat {
     }
 
 
-    /*private void initPrefLogging() {
-
-        logging = (CheckBoxPreference) findPreference("logging");
-
-        setLogging();
-
-        logging.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-
-                Settings.setLogging(getActivity(), (Boolean) newValue);
-                return true;
-            }
-        });
-    }
-
-
-    public void setLogging() {
-        if (logging == null) {
-            logging = (CheckBoxPreference) findPreference("logging");
-        }
-
-        logging.setChecked(Settings.getLogging(getActivity()));
-    }*/
-
-
     private void initPrefEllipsize() {
         ATESwitchPreference switchPreference = (ATESwitchPreference) findPreference("ellipsize");
 
@@ -477,7 +450,7 @@ public class FragmentSettings extends PreferenceFragmentCompat {
 
     private void initPrefPin() {
 
-        Preference preference = findPreference("pin");
+        final Preference preference = findPreference("pin");
 
         /*switch (pref.getString(PREF_THEME, PREF_DARK_THEME)) {
 
@@ -496,9 +469,26 @@ public class FragmentSettings extends PreferenceFragmentCompat {
 
         preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
-            public boolean onPreferenceClick(Preference preference) {
+            public boolean onPreferenceClick(Preference p) {
 
-                checkPin(preference);
+                if (pref.getBoolean("pin_disclaimer", true)) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                    builder.setTitle(R.string.note)
+                            .setMessage(R.string.pin_warning)
+                            .setPositiveButton(R.string.understand, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    pref.edit().putBoolean("pin_disclaimer", false).apply();
+                                    checkPin(preference);
+                                }
+                            })
+                            .show();
+
+                } else {
+                    checkPin(preference);
+                }
+
                 return true;
             }
         });
