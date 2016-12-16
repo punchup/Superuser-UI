@@ -49,8 +49,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -71,12 +69,12 @@ import com.koushikdutta.superuser.db.LogEntry;
 import com.koushikdutta.superuser.db.SuDatabaseHelper;
 import com.koushikdutta.superuser.db.SuperuserDatabaseHelper;
 import com.koushikdutta.superuser.db.UidPolicy;
+import com.koushikdutta.superuser.helper.Settings;
+import com.koushikdutta.superuser.helper.Theme;
 import com.koushikdutta.superuser.helper.recycler.GridDividerItemDecoration;
 import com.koushikdutta.superuser.helper.recycler.GridTopOffsetItemDecoration;
-import com.koushikdutta.superuser.util.Util;
 import com.koushikdutta.superuser.helper.recycler.StartOffsetItemDecoration;
-import com.koushikdutta.superuser.helper.Theme;
-import com.koushikdutta.superuser.helper.Settings;
+import com.koushikdutta.superuser.util.Util;
 import com.koushikdutta.superuser.view.PinView;
 import com.koushikdutta.superuser.view.RecyclerViewSwipeable;
 
@@ -125,8 +123,13 @@ public class FragmentMain extends Fragment {
 
                 logCount.put(pkg, log);
 
-                data.get(pos).setItem3(getString(R.string.today));
-                adapter.getVisible().get(pos).setItem3(getString(R.string.today));
+                ListItem item = adapter.getVisible().get(pos);
+
+                int i = data.indexOf(item);
+
+                item.setItem3(getString(R.string.today));
+
+                data.set(i, item);
 
             } else {
                 if (intent.getStringExtra("policy").equals(UidPolicy.ALLOW))
@@ -162,8 +165,6 @@ public class FragmentMain extends Fragment {
 
 
     Context context;
-    DisplayMetrics metrics;
-
     SharedPreferences pref;
 
     MainCallback callback;
@@ -236,13 +237,12 @@ public class FragmentMain extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         context = getActivity();
-        metrics = getResources().getDisplayMetrics();
 
         pref = PreferenceManager.getDefaultSharedPreferences(context);
 
         callback = (MainCallback) getActivity();
 
-        LocalBroadcastManager.getInstance(context).registerReceiver(receiver, new IntentFilter("POLICY_UPDATE"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(receiver, new IntentFilter(Common.INTENT_FILTER_MAIN));
 
 
         gridMode = pref.getBoolean("grid_mode", true);
@@ -277,15 +277,12 @@ public class FragmentMain extends Fragment {
 
             recycler.addItemDecoration(new GridDividerItemDecoration(divider, divider, span));
 
-            recycler.addItemDecoration(
-                    new GridTopOffsetItemDecoration(
-                            (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, metrics), span));
+            recycler.addItemDecoration(new GridTopOffsetItemDecoration(Util.toPx(context, 5), span));
 
         } else {
             recycler.setLayoutManager(new LinearLayoutManager(context));
 
-            recycler.addItemDecoration(
-                    new StartOffsetItemDecoration((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, metrics)));
+            recycler.addItemDecoration(new StartOffsetItemDecoration(Util.toPx(context, 5)));
         }
 
         //recycler.setListener(clickListener);

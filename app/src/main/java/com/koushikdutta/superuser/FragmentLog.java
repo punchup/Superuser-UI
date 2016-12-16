@@ -18,13 +18,16 @@
 
 package com.koushikdutta.superuser;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.SwitchCompat;
@@ -65,8 +68,15 @@ import java.util.Locale;
 public class FragmentLog extends Fragment  {
 
     public interface LogCallback {
-        void onChanged();
+        void onLogCleared();
     }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            load();
+        }
+    };
 
 
     LinearLayout header;
@@ -232,13 +242,13 @@ public class FragmentLog extends Fragment  {
                 }
             }
         });
+
+        load();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter(Common.INTENT_FILTER_LOG));
     }
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
+    private void load() {
         listParent = new ArrayList<>();
         listChild = new HashMap<>();
 
@@ -293,8 +303,13 @@ public class FragmentLog extends Fragment  {
             list.add(new ListItem(null, title, time, summary, null));
         }
 
-        adapter = new LogAdapter(getActivity());
-        listView.setAdapter(adapter);
+        if (adapter == null) {
+            adapter = new LogAdapter(getActivity());
+            listView.setAdapter(adapter);
+
+        } else {
+            adapter.notifyDataSetChanged();
+        }
 
         if (listParent.size() > 0) listView.expandGroup(0);
     }
@@ -329,7 +344,7 @@ public class FragmentLog extends Fragment  {
                         SuperuserDatabaseHelper.deleteLogs(getActivity());
 
                     adapter.clear();
-                    callback.onChanged();
+                    callback.onLogCleared();
                     //if (up != null) getActivity().finish();
                     return true;
                 }
@@ -344,6 +359,8 @@ public class FragmentLog extends Fragment  {
         super.onDestroyView();
 
         callback = null;
+
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
     }
 
 

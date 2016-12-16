@@ -309,14 +309,14 @@ public class MainActivity extends ATHToolbarActivity
         super.onResume();
 
         if (SHOULD_RELOAD) {
-            onChanged();
+            onLogCleared();
             SHOULD_RELOAD = false;
         }
     }
 
 
     @Override
-    public void onChanged() {
+    public void onLogCleared() {
         ((FragmentMain)pagerAdapter.getRegisteredFragment(1)).load();
         ((FragmentMain)pagerAdapter.getRegisteredFragment(2)).load();
     }

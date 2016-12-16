@@ -111,9 +111,9 @@ public class SuReceiver extends BroadcastReceiver {
                 break;
         }
 
-
+        LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Common.INTENT_FILTER_LOG));
         LocalBroadcastManager.getInstance(context).sendBroadcast(
-                new Intent("POLICY_UPDATE").putExtra("pkg", logEntry.packageName).putExtra("policy", action));
+                new Intent(Common.INTENT_FILTER_MAIN).putExtra("pkg", logEntry.packageName).putExtra("policy", action));
     }
 
 
