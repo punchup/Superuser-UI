@@ -20,6 +20,7 @@ package com.koushikdutta.superuser;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -47,8 +48,23 @@ import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.kabouzeid.appthemehelper.core.ThemeStore;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
+import com.koushikdutta.superuser.db.LogEntry;
+import com.koushikdutta.superuser.db.SuDatabaseHelper;
+import com.koushikdutta.superuser.db.SuperuserDatabaseHelper;
+import com.koushikdutta.superuser.db.UidPolicy;
 import com.koushikdutta.superuser.helper.Theme;
 import com.koushikdutta.superuser.util.Util;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 import static com.koushikdutta.superuser.FragmentMain.SHOULD_RELOAD;
 
@@ -74,6 +90,10 @@ public class MainActivity extends ATHToolbarActivity
     SharedPreferences pref;
     SharedPreferences.Editor prefEdit;
 
+    public static List<ListItem> data;
+
+    public static HashMap<String, String> logCount;
+
     public String theme;
     public int textToolbarDefault;
 
@@ -92,6 +112,8 @@ public class MainActivity extends ATHToolbarActivity
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         prefEdit = pref.edit();
+
+        loadData();
 
         Bundle bundle = Theme.setTheme(this, pref);
 
@@ -304,6 +326,65 @@ public class MainActivity extends ATHToolbarActivity
     }
 
 
+    private void loadData() {
+        data = new ArrayList<>();
+
+        logCount = new HashMap<>();
+
+        final ArrayList<UidPolicy> policies = SuDatabaseHelper.getPolicies(this);
+
+        SQLiteDatabase db = new SuperuserDatabaseHelper(this).getReadableDatabase();
+
+        try {
+            //java.text.DateFormat df = DateFormat.getLongDateFormat(getActivity());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMM", Locale.getDefault());
+
+            Calendar calendar = GregorianCalendar.getInstance();
+            Calendar logCalendar = GregorianCalendar.getInstance();
+
+            for (UidPolicy up : policies) {
+                Date date;
+                int allowedCount = 0, deniedCount = 0;
+                String s = null;
+
+                ArrayList<LogEntry> logs = SuperuserDatabaseHelper.getLogs(db, up, -1);
+
+                if (logs.size() > 0) {
+                    date = logs.get(0).getDate();
+
+                    for (LogEntry log : logs) {
+                        if (log.action.equalsIgnoreCase(UidPolicy.ALLOW)) allowedCount++;
+                        else if (log.action.equalsIgnoreCase(UidPolicy.DENY)) deniedCount++;
+                    }
+
+                    logCount.put(up.packageName, String.valueOf(allowedCount) + "+" + String.valueOf(deniedCount));
+
+                    s = sdf.format(date);
+
+                    logCalendar.setTime(date);
+
+                    if (calendar.get(Calendar.YEAR) == logCalendar.get(Calendar.YEAR) &&
+                            calendar.get(Calendar.DAY_OF_YEAR) == logCalendar.get(Calendar.DAY_OF_YEAR)) s = getString(R.string.today);
+                }
+
+                ListItem item = new ListItem(up, up.getPolicy(), up.getName(), s, Util.loadPackageIcon(this, up.packageName));
+
+                if (!data.contains(item)) data.add(item);
+            }
+
+            Collections.sort(data, new Comparator<ListItem>() {
+                @Override
+                public int compare(ListItem listItem, ListItem t1) {
+                    return listItem.getItem2().compareToIgnoreCase(t1.getItem2());
+                }
+            });
+
+        } finally {
+            db.close();
+        }
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -317,21 +398,23 @@ public class MainActivity extends ATHToolbarActivity
 
     @Override
     public void onLogCleared() {
-        ((FragmentMain)pagerAdapter.getRegisteredFragment(1)).load();
-        ((FragmentMain)pagerAdapter.getRegisteredFragment(2)).load();
+        loadData();
+        ((FragmentMain)pagerAdapter.getRegisteredFragment(1)).setData();
+        ((FragmentMain)pagerAdapter.getRegisteredFragment(2)).setData();
     }
 
 
     @Override
     public void onListChanged(int which) {
-        switch (which) {
+        loadData();
 
+        switch (which) {
             case FragmentMain.FRAGMENT_ALLOWED:
-                ((FragmentMain)pagerAdapter.getRegisteredFragment(2)).load();
+                ((FragmentMain)pagerAdapter.getRegisteredFragment(2)).setData();
                 break;
 
             case FragmentMain.FRAGMENT_DENIED:
-                ((FragmentMain)pagerAdapter.getRegisteredFragment(1)).load();
+                ((FragmentMain)pagerAdapter.getRegisteredFragment(1)).setData();
                 break;
         }
     }
@@ -356,10 +439,9 @@ public class MainActivity extends ATHToolbarActivity
     protected void onDestroy() {
         super.onDestroy();
 
-        FragmentMain.data = null;
+        data = null;
+        logCount = null;
     }
-
-
 
 
     public class PagerAdapter extends FragmentPagerAdapter {

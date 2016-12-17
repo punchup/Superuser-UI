@@ -26,7 +26,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
@@ -65,9 +64,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kabouzeid.appthemehelper.util.ATHUtil;
-import com.koushikdutta.superuser.db.LogEntry;
 import com.koushikdutta.superuser.db.SuDatabaseHelper;
-import com.koushikdutta.superuser.db.SuperuserDatabaseHelper;
 import com.koushikdutta.superuser.db.UidPolicy;
 import com.koushikdutta.superuser.helper.Settings;
 import com.koushikdutta.superuser.helper.Theme;
@@ -78,17 +75,12 @@ import com.koushikdutta.superuser.util.Util;
 import com.koushikdutta.superuser.view.PinView;
 import com.koushikdutta.superuser.view.RecyclerViewSwipeable;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
+
+import static com.koushikdutta.superuser.MainActivity.data;
+import static com.koushikdutta.superuser.MainActivity.logCount;
 
 
 public class FragmentMain extends Fragment {
@@ -172,9 +164,6 @@ public class FragmentMain extends Fragment {
     RecyclerViewSwipeable.LayoutManagerSwipeable layoutManager;
     AppAdapter adapter;
 
-    public static List<ListItem> data;
-
-    HashMap<String, String> logCount;
 
     public static boolean SHOULD_RELOAD = false;
     boolean gridMode;
@@ -289,66 +278,7 @@ public class FragmentMain extends Fragment {
         //recycler.setViewPager(viewPager);
         //recycler.setFragment(this);
 
-        load();
-    }
-
-
-    private void processData() {
-        data = new ArrayList<>();
-
-        logCount = new HashMap<>();
-
-        final ArrayList<UidPolicy> policies = SuDatabaseHelper.getPolicies(getActivity());
-
-        SQLiteDatabase db = new SuperuserDatabaseHelper(getActivity()).getReadableDatabase();
-
-        try {
-            //java.text.DateFormat df = DateFormat.getLongDateFormat(getActivity());
-            SimpleDateFormat sdf = new SimpleDateFormat("dd MMM", Locale.getDefault());
-
-            Calendar calendar = GregorianCalendar.getInstance();
-            Calendar logCalendar = GregorianCalendar.getInstance();
-
-            for (UidPolicy up : policies) {
-                Date date;
-                int allowedCount = 0, deniedCount = 0;
-                String s = null;
-
-                ArrayList<LogEntry> logs = SuperuserDatabaseHelper.getLogs(db, up, -1);
-
-                if (logs.size() > 0) {
-                    date = logs.get(0).getDate();
-
-                    for (LogEntry log : logs) {
-                        if (log.action.equalsIgnoreCase(UidPolicy.ALLOW)) allowedCount++;
-                        else if (log.action.equalsIgnoreCase(UidPolicy.DENY)) deniedCount++;
-                    }
-
-                    logCount.put(up.packageName, String.valueOf(allowedCount) + "+" + String.valueOf(deniedCount));
-
-                    s = sdf.format(date);
-
-                    logCalendar.setTime(date);
-
-                    if (calendar.get(Calendar.YEAR) == logCalendar.get(Calendar.YEAR) &&
-                            calendar.get(Calendar.DAY_OF_YEAR) == logCalendar.get(Calendar.DAY_OF_YEAR)) s = getString(R.string.today);
-                }
-
-                ListItem item = new ListItem(up, up.getPolicy(), up.getName(), s, Util.loadPackageIcon(context, up.packageName));
-
-                if (!data.contains(item)) data.add(item);
-            }
-
-            Collections.sort(data, new Comparator<ListItem>() {
-                @Override
-                public int compare(ListItem listItem, ListItem t1) {
-                    return listItem.getItem2().compareToIgnoreCase(t1.getItem2());
-                }
-            });
-
-        } finally {
-            db.close();
-        }
+        setData();
     }
 
 
@@ -357,9 +287,7 @@ public class FragmentMain extends Fragment {
     }*/
 
 
-    public void load() {
-        processData();
-
+    public void setData() {
         if (adapter == null) {
             adapter = new AppAdapter(context);
             recycler.setAdapter(adapter);
@@ -552,8 +480,10 @@ public class FragmentMain extends Fragment {
             int size = visible.size();
 
             if (size > 0) {
-                for (int i = 0; i < size; i++)
-                    visible.remove(0);
+                /*for (int i = 0; i < size; i++) Not needed anymore
+                    visible.remove(0);*/
+
+                visible.clear();
 
                 this.notifyItemRangeRemoved(0, size);
             }
@@ -747,13 +677,13 @@ public class FragmentMain extends Fragment {
                     Menu menu = popupMenu.getMenu();
 
                     if (policy.equalsIgnoreCase(UidPolicy.ALLOW)) {
-                        menu(0, menu.add(getString(R.string.deny)), holder, item);
+                        setMenu(0, menu.add(getString(R.string.deny)), holder, item);
 
                     } else {
-                        menu(0, menu.add(getString(R.string.allow)), holder, item);
+                        setMenu(0, menu.add(getString(R.string.allow)), holder, item);
                     }
 
-                    menu(1, menu.add(getString(R.string.revoke)), holder, item);
+                    setMenu(1, menu.add(getString(R.string.revoke)), holder, item);
 
                     popupMenu.show();
                 }
@@ -761,7 +691,7 @@ public class FragmentMain extends Fragment {
         }
 
 
-        private void menu(final int which, MenuItem menuItem, final ViewHolder holder, final ListItem item) {
+        private void setMenu(final int which, MenuItem menuItem, final ViewHolder holder, final ListItem item) {
 
             menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
@@ -903,7 +833,7 @@ public class FragmentMain extends Fragment {
         }
 
 
-        private void setClickListener(View view, final View child, final ListItem item) {
+        private void setClickListener(View view, final View icon, final ListItem item) {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View view) {
@@ -925,7 +855,7 @@ public class FragmentMain extends Fragment {
 
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-                                    Pair<View, String> pair2 = Pair.create(child, "icon");
+                                    Pair<View, String> pair2 = Pair.create(icon, "icon");
                                     //Pair<View, String> pair1 = Pair.create(parent.findViewById(R.id.title), "title");
 
                                     ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity()/*, pair1*/, pair2);
