@@ -77,25 +77,23 @@ public class MainActivity extends ATHToolbarActivity
     public static final String PREF_LIGHT_THEME = "light_theme";
 
 
-    DrawerLayout drawer;
+    private DrawerLayout drawer;
 
-    AppBarLayout appBar;
     Toolbar toolbar;
-    TabLayout tabLayout;
 
     private PagerAdapter pagerAdapter;
     //FloatingActionButton fab;
 
 
-    SharedPreferences pref;
-    SharedPreferences.Editor prefEdit;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor prefEdit;
 
-    public static List<ListItem> data;
+    static List<ListItem> data;
 
-    public static HashMap<String, String> logCount;
+    static HashMap<String, String> logCount;
 
-    public String theme;
-    public int textToolbarDefault;
+    String theme;
+    int textToolbarDefault;
 
 
 
@@ -124,7 +122,7 @@ public class MainActivity extends ATHToolbarActivity
         setContentView(R.layout.activity_main);
 
 
-        appBar = (AppBarLayout) findViewById(R.id.appbar);
+        AppBarLayout appBar = (AppBarLayout) findViewById(R.id.appbar);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -140,7 +138,7 @@ public class MainActivity extends ATHToolbarActivity
         viewPager.setCurrentItem(1);
         viewPager.setOffscreenPageLimit(2);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.setSelectedTabIndicatorColor(pref.getInt("tab_indicator", ATHUtil.resolveColor(this, R.attr.tabIndicatorAccent)));
@@ -406,8 +404,6 @@ public class MainActivity extends ATHToolbarActivity
 
     @Override
     public void onListChanged(int which) {
-        loadData();
-
         switch (which) {
             case FragmentMain.FRAGMENT_ALLOWED:
                 ((FragmentMain)pagerAdapter.getRegisteredFragment(2)).setData();

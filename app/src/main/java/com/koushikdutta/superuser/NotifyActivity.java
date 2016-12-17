@@ -44,12 +44,9 @@ import static com.koushikdutta.superuser.MultitaskSuRequestActivity.width;
 
 public class NotifyActivity extends AppCompatActivity {
 
-    SharedPreferences pref;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         switch (pref.getString(PREF_THEME, PREF_DARK_THEME)) {
             case PREF_BLACK_THEME:

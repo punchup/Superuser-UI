@@ -11,7 +11,7 @@ import com.koushikdutta.superuser.helper.Theme;
 
 public class ActivityLog extends ATHToolbarActivity {
 
-    public int textToolbar;
+    int textToolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

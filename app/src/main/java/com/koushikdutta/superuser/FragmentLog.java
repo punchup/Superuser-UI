@@ -79,23 +79,21 @@ public class FragmentLog extends Fragment  {
     };
 
 
-    LinearLayout header;
+    //private LinearLayout header;
 
-    ImageView icon;
+    private SwitchCompat log, notification;
 
-    SwitchCompat log, notification;
-
-    ExpandableListView listView;
+    private ExpandableListView listView;
 
 
-    LogCallback callback;
+    private LogCallback callback;
 
-    List<String> listParent;
-    HashMap<String, List<ListItem>> listChild;
+    private List<String> listParent;
+    private HashMap<String, List<ListItem>> listChild;
 
-    LogAdapter adapter;
+    private LogAdapter adapter;
 
-    UidPolicy up;
+    private UidPolicy up;
 
 
 
@@ -122,9 +120,9 @@ public class FragmentLog extends Fragment  {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        header = (LinearLayout) getActivity().findViewById(R.id.header);
+        //header = (LinearLayout) getActivity().findViewById(R.id.header);
 
-        icon = (ImageView)getActivity().findViewById(R.id.icon);
+        ImageView icon = (ImageView) getActivity().findViewById(R.id.icon);
 
         TextView title, subtitle, request, command;
 

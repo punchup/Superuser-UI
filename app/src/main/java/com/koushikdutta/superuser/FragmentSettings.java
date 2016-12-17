@@ -38,7 +38,7 @@ import com.koushikdutta.superuser.helper.Settings;
 
 public class FragmentSettings extends PreferenceFragmentCompat {
 
-    SharedPreferences pref;
+    private SharedPreferences pref;
 
 
     @Override

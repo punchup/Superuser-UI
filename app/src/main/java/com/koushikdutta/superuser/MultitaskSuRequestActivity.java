@@ -73,8 +73,8 @@ import static com.koushikdutta.superuser.MainActivity.PREF_THEME;
 @SuppressLint("ValidFragment")
 public class MultitaskSuRequestActivity extends AppCompatActivity {
 
-    Spinner spinner;
-    Button allow, deny;
+    private Spinner spinner;
+    private Button allow, deny;
 
 
     private static final String LOGTAG = "Superuser";
@@ -91,24 +91,25 @@ public class MultitaskSuRequestActivity extends AppCompatActivity {
     };
 
 
-    SharedPreferences pref;
+    private SharedPreferences pref;
 
-    ArrayAdapter<String> spinnerAdapter;
+    private ArrayAdapter<String> spinnerAdapter;
 
-    Handler handler = new Handler();
+    private Handler handler = new Handler();
 
-    LocalSocket socket;
+    private LocalSocket socket;
 
-    boolean handled, requestReady;
+    private boolean handled, requestReady;
 
-    int callerUid, desiredUid;
-    String desiredCmd;
-    String bindFrom, bindTo;
+    private String socketPath;
+    private String desiredCmd;
+    private String bindFrom, bindTo;
 
-    int pid;
-    int timeLeft = 3;
+    private int callerUid, desiredUid;
 
-    String socketPath;
+    private int pid, timeLeft = 3;
+
+
 
 
     @Override

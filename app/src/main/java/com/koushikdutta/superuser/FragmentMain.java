@@ -43,7 +43,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -146,31 +145,31 @@ public class FragmentMain extends Fragment {
     private static final String DATA_BUNDLE_KEY = "deleted";
 
 
-    CoordinatorLayout coordinatorLayout;
+    private CoordinatorLayout coordinatorLayout;
 
     //TabLayout tabLayout;
 
-    ViewPager viewPager;
+    //private ViewPager viewPager;
 
-    TextView empty;
-    RecyclerViewSwipeable recycler;
-
-
-    Context context;
-    SharedPreferences pref;
-
-    MainCallback callback;
-
-    RecyclerViewSwipeable.LayoutManagerSwipeable layoutManager;
-    AppAdapter adapter;
+    private TextView empty;
+    private RecyclerViewSwipeable recycler;
 
 
-    public static boolean SHOULD_RELOAD = false;
-    boolean gridMode;
+    private Context context;
+    private SharedPreferences pref;
 
-    int type = FRAGMENT_ALLOWED;
+    private MainCallback callback;
 
-    String policy;
+    private RecyclerViewSwipeable.LayoutManagerSwipeable layoutManager;
+    private AppAdapter adapter;
+
+
+    static boolean SHOULD_RELOAD = false;
+    private boolean gridMode;
+
+    private int type = FRAGMENT_ALLOWED;
+
+    private String policy;
 
 
 
@@ -241,7 +240,7 @@ public class FragmentMain extends Fragment {
 
         //tabLayout = (TabLayout) getActivity().findViewById(R.id.tabs);
 
-        viewPager = (ViewPager) getActivity().findViewById(R.id.container);
+        //viewPager = (ViewPager) getActivity().findViewById(R.id.container);
 
         int span = 0;
 
@@ -271,7 +270,7 @@ public class FragmentMain extends Fragment {
         } else {
             recycler.setLayoutManager(new LinearLayoutManager(context));
 
-            recycler.addItemDecoration(new StartOffsetItemDecoration(Util.toPx(context, 5)));
+            recycler.addItemDecoration(new StartOffsetItemDecoration(Util.toPx(context, 10)));
         }
 
         //recycler.setListener(clickListener);
@@ -485,7 +484,7 @@ public class FragmentMain extends Fragment {
 
                 visible.clear();
 
-                this.notifyItemRangeRemoved(0, size);
+                notifyItemRangeRemoved(0, size);
             }
 
             for (ListItem item : data) {
@@ -530,19 +529,6 @@ public class FragmentMain extends Fragment {
                 }
             });
 
-            if (item.getItem3() != null) {
-                holder.subtitle.setVisibility(View.VISIBLE);
-                holder.counter.setVisibility(View.VISIBLE);
-                if (!gridMode) holder.counterIndicator.setVisibility(View.VISIBLE);
-
-                holder.subtitle.setText(item.getItem3());
-
-            } else {
-                holder.subtitle.setVisibility(View.GONE);
-                holder.counter.setVisibility(View.GONE);
-                if (!gridMode) holder.counterIndicator.setVisibility(View.GONE);
-            }
-
             String count = logCount.get(item.getPolicy().packageName);
 
             if (count != null) {
@@ -557,6 +543,19 @@ public class FragmentMain extends Fragment {
 
                 if (count.length() == 1) count = "0" + count;
                 holder.counter.setText(count);
+            }
+
+            if (item.getItem3() != null && Integer.parseInt(count) > 0) {
+                holder.subtitle.setVisibility(View.VISIBLE);
+                holder.counter.setVisibility(View.VISIBLE);
+                if (!gridMode) holder.counterIndicator.setVisibility(View.VISIBLE);
+
+                holder.subtitle.setText(item.getItem3());
+
+            } else {
+                holder.subtitle.setVisibility(View.GONE);
+                holder.counter.setVisibility(View.GONE);
+                if (!gridMode) holder.counterIndicator.setVisibility(View.GONE);
             }
 
             if (gridMode) handleGridItem(holder, item);
@@ -761,41 +760,42 @@ public class FragmentMain extends Fragment {
 
 
         private void handleRequest(int which, ViewHolder holder, ListItem item) {
-            final int pos = data.indexOf(item);
-
             final UidPolicy up = item.getPolicy();
 
             switch (which) {
                 case 0: changePolicy(holder, up, item); break;
-                case 1: revoke(holder, up, pos); break;
+                case 1: revoke(holder, up, item); break;
             }
         }
 
 
         private void changePolicy(ViewHolder holder, UidPolicy up, ListItem item) {
+            int i = data.indexOf(item);
+
             item.setItem1(policy.equals(UidPolicy.ALLOW) ? UidPolicy.DENY : UidPolicy.ALLOW);
 
             up.setPolicy(policy.equals(UidPolicy.ALLOW) ? UidPolicy.DENY : UidPolicy.ALLOW);
 
             SuDatabaseHelper.setPolicy(context, up);
 
-            adapter.remove(holder.getAdapterPosition());
+            data.set(i, item);
 
+            remove(holder.getAdapterPosition());
             callback.onListChanged(type);
 
             setEmpty();
         }
 
 
-        private void revoke(final ViewHolder holder, final UidPolicy up, final int pos) {
+        private void revoke(final ViewHolder holder, final UidPolicy up, final ListItem item) {
             final Handler handler = new Handler() {
                 @Override
                 public void handleMessage(Message msg) {
                     if (msg.getData().getBoolean(DATA_BUNDLE_KEY)) {
 
-                        data.remove(pos);
+                        data.remove(data.indexOf(item));
 
-                        adapter.remove(holder.getAdapterPosition());
+                        remove(holder.getAdapterPosition());
 
                         setEmpty();
 
