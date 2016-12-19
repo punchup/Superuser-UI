@@ -135,4 +135,7 @@
     <string name="understand">I understand</string>
     <string name="open_drawer">Open drawer</string>
     <string name="close_drawer">Close drawer</string>
+    <string name="hide_launcher">Hide launcher icon</string>
+    <string name="enable_superuser">Enable Superuser</string>
+    <string name="disable_superuser">Disable Superuser</string>
 </resources>

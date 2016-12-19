@@ -19,9 +19,18 @@
 package com.koushikdutta.superuser;
 
 import android.content.Intent;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.graphics.drawable.Icon;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.koushikdutta.superuser.helper.Settings;
+
+import java.util.Arrays;
 
 public class ActivitySplash extends AppCompatActivity {
 
@@ -31,8 +40,26 @@ public class ActivitySplash extends AppCompatActivity {
 
         boolean startup = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("intro", true);
 
-        if (startup) startActivity(new Intent(this, ActivityIntro.class));
-        else startActivity(new Intent(this, MainActivity.class));
+        if (startup) {
+            startActivity(new Intent(this, ActivityIntro.class));
+
+            if (Build.VERSION.SDK_INT >= 25) {
+                switch (Settings.getSuperuserAccess()) {
+                    case Settings.SUPERUSER_ACCESS_ADB_ONLY:
+                    case Settings.SUPERUSER_ACCESS_APPS_ONLY:
+                    case Settings.SUPERUSER_ACCESS_APPS_AND_ADB:
+                        SuSwitch.setShortcut(this, 1);
+                        break;
+
+                    case Settings.SUPERUSER_ACCESS_DISABLED:
+                        SuSwitch.setShortcut(this, 0);
+                        break;
+                }
+            }
+
+        } else
+            startActivity(new Intent(this, MainActivity.class));
+
         finish();
     }
 }

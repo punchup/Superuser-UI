@@ -85,7 +85,7 @@
         <item name="pagerBackground">#f0f0f0</item>
         <item name="dividerGrid">#d9d9d9</item>
         <item name="listItemBackground">#09000000</item>
-        <item name="listItemBackgroundOverlay">#eaeaea</item><!--cfd8dc-->
+        <item name="listItemBackgroundOverlay">#10000000</item><!--cfd8dc-->
         <!--<item name="android:textColorPrimary">#3b3b3b</item>
         <item name="android:textColorSecondary">#666666</item>-->
         <item name="textColorPrimary">#323232</item>

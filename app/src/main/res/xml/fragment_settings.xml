@@ -61,6 +61,11 @@
             app:title="@string/ellipsize"
             android:defaultValue="true"/>
 
+        <com.kabouzeid.appthemehelper.common.preference.ATESwitchPreference
+            app:key="hide_launcher"
+            app:title="@string/hide_launcher"
+            android:defaultValue="false"/>
+
     </com.koushikdutta.superuser.view.PreferenceCategoryCustom>
 
 </android.support.v7.preference.PreferenceScreen>
