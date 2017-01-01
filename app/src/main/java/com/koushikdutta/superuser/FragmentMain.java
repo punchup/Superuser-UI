@@ -59,6 +59,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -392,7 +393,8 @@ public class FragmentMain extends Fragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            LinearLayout parent, titleParent, permParent;
+            LinearLayout parent, overlayParent, titleParent;
+            RelativeLayout iconParent;
 
             ImageView icon, left, right, menu;
             TextView title, subtitle, counter, counterIndicator;
@@ -401,12 +403,13 @@ public class FragmentMain extends Fragment {
                 super(itemView);
 
                 parent = (LinearLayout) itemView.findViewById(R.id.parent);
+                iconParent = (RelativeLayout) itemView.findViewById(R.id.icon_parent);
+                overlayParent = (LinearLayout) itemView.findViewById(R.id.overlay_parent);
                 titleParent = (LinearLayout) itemView.findViewById(R.id.title_parent);
-                permParent = (LinearLayout) itemView.findViewById(R.id.perm_parent);
 
                 icon = (ImageView) itemView.findViewById(R.id.icon);
-                left = (ImageView) itemView.findViewById(R.id.permLeft);
-                right = (ImageView) itemView.findViewById(R.id.permRight);
+                left = (ImageView) itemView.findViewById(R.id.permission_left);
+                right = (ImageView) itemView.findViewById(R.id.permission_right);
                 menu = (ImageView) itemView.findViewById(R.id.menu);
 
                 title = (TextView) itemView.findViewById(R.id.title);
@@ -565,7 +568,7 @@ public class FragmentMain extends Fragment {
 
         private void handleGridItem(final ViewHolder holder, final ListItem item) {
 
-            holder.permParent.setOnTouchListener(new View.OnTouchListener() {
+            holder.overlayParent.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     return true;
@@ -593,27 +596,20 @@ public class FragmentMain extends Fragment {
             holder.titleParent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (holder.permParent.getVisibility() == View.GONE) {
-                        Animation down = AnimationUtils.loadAnimation(context, R.anim.abc_slide_in_top);
+                    if (holder.overlayParent.getVisibility() == View.GONE)
+                        showOverlay(holder);
 
-                        holder.permParent.startAnimation(down);
-                        holder.permParent.setVisibility(View.VISIBLE);
-
-                    } else {
-                        Animation up = AnimationUtils.loadAnimation(context, R.anim.abc_slide_out_top);
-
-                        holder.permParent.startAnimation(up);
-                        holder.permParent.setVisibility(View.GONE);
-                    }
+                    else
+                        hideOverlay(holder);
                 }
             });
 
             if (policy.equalsIgnoreCase(UidPolicy.ALLOW)) {
-                holder.left.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_deny));
+                holder.left.setImageResource(R.drawable.ic_deny);
                 holder.left.setColorFilter(0xfff44336);
 
             } else {
-                holder.left.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_allow));
+                holder.left.setImageResource(R.drawable.ic_allow);
                 holder.left.setColorFilter(0xff4caf50);
             }
 
@@ -643,11 +639,54 @@ public class FragmentMain extends Fragment {
         }
 
 
-        private void hideOverlay(ViewHolder holder) {
-            Animation up = AnimationUtils.loadAnimation(context, R.anim.abc_slide_out_top);
+        private void showOverlay(final ViewHolder holder) {
+            final Animation up = AnimationUtils.loadAnimation(context, R.anim.abc_slide_in_bottom);
+            final Animation down = AnimationUtils.loadAnimation(context, R.anim.abc_slide_out_bottom);
 
-            holder.permParent.startAnimation(up);
-            holder.permParent.setVisibility(View.GONE);
+            down.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    holder.iconParent.setVisibility(View.GONE);
+                    holder.overlayParent.startAnimation(up);
+                    holder.overlayParent.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+
+            holder.iconParent.startAnimation(down);
+
+        }
+
+
+        private void hideOverlay(final ViewHolder holder) {
+            final Animation up = AnimationUtils.loadAnimation(context, R.anim.abc_slide_in_bottom);
+            final Animation down = AnimationUtils.loadAnimation(context, R.anim.abc_slide_out_bottom);
+
+            down.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    holder.overlayParent.setVisibility(View.GONE);
+                    holder.iconParent.startAnimation(up);
+                    holder.iconParent.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+
+            holder.overlayParent.startAnimation(down);
         }
 
 

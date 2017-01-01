@@ -18,21 +18,12 @@
 
 package com.koushikdutta.superuser;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ShortcutInfo;
-import android.content.pm.ShortcutManager;
-import android.graphics.drawable.Icon;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.koushikdutta.superuser.helper.Settings;
-
-import java.util.Arrays;
 
 
 public class SuSwitch extends Activity {
@@ -41,32 +32,58 @@ public class SuSwitch extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int which = -1;
+        int which = 0;
+
+        if (getIntent() == null || getIntent().getData() == null) {
+            notify(which);
+            finish();
+            return;
+        }
 
         switch (Settings.getSuperuserAccess()) {
             case Settings.SUPERUSER_ACCESS_ADB_ONLY:
             case Settings.SUPERUSER_ACCESS_APPS_ONLY:
             case Settings.SUPERUSER_ACCESS_APPS_AND_ADB:
-                PreferenceManager.getDefaultSharedPreferences(this).edit().putInt("last_state", Settings.getSuperuserAccess()).apply();
-                Settings.setSuperuserAccess(Settings.SUPERUSER_ACCESS_DISABLED);
-                which = 1;
+
+                switch (getIntent().getData().toString()) {
+                    case "su_allow":
+                        which = -1;
+                        break;
+
+                    case "su_deny":
+                        PreferenceManager.getDefaultSharedPreferences(this).edit().putInt("last_state", Settings.getSuperuserAccess()).apply();
+                        Settings.setSuperuserAccess(Settings.SUPERUSER_ACCESS_DISABLED);
+                        which = 2;
+                        break;
+                }
+
                 break;
 
             case Settings.SUPERUSER_ACCESS_DISABLED:
-                Settings.setSuperuserAccess(PreferenceManager.getDefaultSharedPreferences(this).getInt("last_state", Settings.SUPERUSER_ACCESS_APPS_AND_ADB));
-                which = 0;
+
+                switch (getIntent().getData().toString()) {
+                    case "su_deny":
+                        which = -2;
+                        break;
+
+                    case "su_allow":
+                        Settings.setSuperuserAccess(PreferenceManager.getDefaultSharedPreferences(this).getInt("last_state", Settings.SUPERUSER_ACCESS_APPS_AND_ADB));
+                        which = 1;
+                        break;
+                }
+
                 break;
         }
-        Toast.makeText(this, String.valueOf(which), Toast.LENGTH_SHORT).show();
-        setShortcut(this, which);
+
+        //setShortcut(this, which);
         notify(which);
 
         finish();
     }
     
     
-    @TargetApi(Build.VERSION_CODES.N_MR1)
-    static void setShortcut(Context context, int which) {
+    //@TargetApi(Build.VERSION_CODES.N_MR1)
+    /*static void setShortcut(Context context, int which) {
         ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
 
         ShortcutInfo shortcut = new ShortcutInfo.Builder(context, "id1")
@@ -76,13 +93,13 @@ public class SuSwitch extends Activity {
                 .build();
 
         shortcutManager.setDynamicShortcuts(Arrays.asList(shortcut));
-    }
+    }*/
 
     private void notify(int which) {
         String s = "Error";
 
         switch (which) {
-            case 0:
+            case 1:
                 switch (Settings.getSuperuserAccess()) {
                     case Settings.SUPERUSER_ACCESS_ADB_ONLY:     s = getString(R.string.adb_only); break;
                     case Settings.SUPERUSER_ACCESS_APPS_ONLY:    s = getString(R.string.apps_only); break;
@@ -90,10 +107,18 @@ public class SuSwitch extends Activity {
                 }
                 break;
 
-            case 1:
+            case -1:
+                s = getString(R.string.already_s, getString(R.string.enabled));
+                break;
+
+            case 2:
                 switch (Settings.getSuperuserAccess()) {
                     case Settings.SUPERUSER_ACCESS_DISABLED: s = getString(R.string.access_disabled); break;
                 }
+                break;
+
+            case -2:
+                s = getString(R.string.already_s, getString(R.string.access_disabled));
                 break;
         }
 

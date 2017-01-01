@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <shortcut
-        android:shortcutId="su"
+        android:shortcutId="su_deny"
         android:enabled="true"
         android:icon="@mipmap/ic_shortcut"
         android:shortcutShortLabel="@string/disable_superuser">
@@ -11,8 +11,21 @@
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="me.phh.superuser"
-            android:targetClass="com.koushikdutta.superuser.SuSwitch" />
+            android:targetClass="com.koushikdutta.superuser.SuSwitch"
+            android:data="su_deny"/>
     </shortcut>
 
+    <shortcut
+        android:shortcutId="su_allow"
+        android:enabled="true"
+        android:icon="@mipmap/ic_shortcut"
+        android:shortcutShortLabel="@string/enable_superuser">
+
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="me.phh.superuser"
+            android:targetClass="com.koushikdutta.superuser.SuSwitch"
+            android:data="su_allow"/>
+    </shortcut>
 
 </shortcuts>

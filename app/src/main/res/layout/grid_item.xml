@@ -10,34 +10,39 @@
     android:clickable="true">
 
     <RelativeLayout
-        android:id="@+id/icon_parent"
         android:layout_width="match_parent"
         android:layout_height="95dp">
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerInParent="true"
-            android:scaleType="centerInside"
-            android:clickable="true"
-            android:background="?selectableItemBackgroundBorderless"
-            android:transitionName="icon"/>
+        <RelativeLayout
+            android:id="@+id/icon_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/counter"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/counter_back"
-            android:layout_alignRight="@id/icon"
-            android:layout_alignBottom="@id/icon"
-            android:textSize="12sp"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:fontFamily="sans-serif"/>
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerInside"
+                android:clickable="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:transitionName="icon"/>
+
+            <TextView
+                android:id="@+id/counter"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/counter_back"
+                android:layout_alignRight="@id/icon"
+                android:layout_alignBottom="@id/icon"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:fontFamily="sans-serif"/>
+        </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/perm_parent"
+            android:id="@+id/overlay_parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
@@ -45,14 +50,14 @@
             android:background="?listItemBackgroundOverlay">
 
             <ImageView
-                android:id="@+id/permLeft"
+                android:id="@+id/permission_left"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"/>
 
             <ImageView
-                android:id="@+id/permRight"
+                android:id="@+id/permission_right"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"

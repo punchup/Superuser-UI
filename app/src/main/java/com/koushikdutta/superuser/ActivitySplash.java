@@ -43,7 +43,7 @@ public class ActivitySplash extends AppCompatActivity {
         if (startup) {
             startActivity(new Intent(this, ActivityIntro.class));
 
-            if (Build.VERSION.SDK_INT >= 25) {
+            /*if (Build.VERSION.SDK_INT >= 25) {
                 switch (Settings.getSuperuserAccess()) {
                     case Settings.SUPERUSER_ACCESS_ADB_ONLY:
                     case Settings.SUPERUSER_ACCESS_APPS_ONLY:
@@ -55,7 +55,7 @@ public class ActivitySplash extends AppCompatActivity {
                         SuSwitch.setShortcut(this, 0);
                         break;
                 }
-            }
+            }*/
 
         } else
             startActivity(new Intent(this, MainActivity.class));

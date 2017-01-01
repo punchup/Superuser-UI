@@ -98,22 +98,24 @@
     <string name="remember_minutes">%s mins.</string> <!-- Try to keep this short as possible. The layout might look a bit weird otherwise -->
     <string name="superuser_request">Superuser Request</string>
     <string name="request_warning">Deny if you\'re not sure!</string>
-    <string name="portrait">Portrait</string>
-    <string name="landscape">Landscape</string>
-    <string name="behavior">Behavior</string>
+    <string name="empty_allowed">No apps allowed at the moment</string>
+    <string name="empty_denied">No apps denied at the moment</string>
+    <string name="allowed">Allowed</string>
+    <string name="denied">Denied</string>
+    <string name="enabled">Enabled</string>
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="day_before">Two days ago</string>
     <string name="base_theme">Base</string>
-    <string name="empty_allowed">No apps allowed at the moment</string>
-    <string name="empty_denied">No apps denied at the moment</string>
-    <string name="black">Black</string>
-    <string name="allowed">Allowed</string>
-    <string name="denied">Denied</string>
+    <string name="black">"Black</string>
     <string name="primary_color">Primary color</string>
     <string name="toolbar_text">Toolbar text</string>
     <string name="tab_indicator">Tab indicator</string>
     <string name="accent_color">Accent color</string>
+    <string name="counter_back">Counter background</string>
+    <string name="counter_text">Counter text</string>
+    <string name="portrait">Portrait</string>
+    <string name="landscape">Landscape</string>
     <string name="grid_size">Grid Size</string>
     <string name="grid_mode">Grid mode</string>
     <string name="list_mode">List mode</string>
@@ -123,13 +125,12 @@
     <string name="smart_mode">Smart Mode</string>
     <string name="smart_mode_summary">Show a toast when the screen is in use and a notification when it\'s off</string>
     <string name="pref_confirmation">Confirmation</string>
+    <string name="behavior">Behavior</string>
     <string name="pref_interface">Interface</string>
     <string name="pref_confirmation_summary">Ask for confirmation before approving Superuser request</string>
     <string name="restrict_noti">Restrict notifications</string>
     <string name="restrict_noti_summary">Notify only when Superuser access is denied</string>
     <string name="ellipsize">Ellipsize app name</string>
-    <string name="counter_back">Counter background</string>
-    <string name="counter_text">Counter text</string>
     <string name="note">Note</string>
     <string name="pin_warning">PIN is only meant to prevent your drunk self or mischievous sibling/kid from making unintended changes.\nIt is not secure enough to protect against a seasoned intruder!</string>
     <string name="understand">I understand</string>
@@ -138,4 +139,6 @@
     <string name="hide_launcher">Hide launcher icon</string>
     <string name="enable_superuser">Enable Superuser</string>
     <string name="disable_superuser">Disable Superuser</string>
+    <string name="already_s">Already %s</string>
+
 </resources>
